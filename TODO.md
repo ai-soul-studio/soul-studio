@@ -9,9 +9,9 @@ I. Project Setup & Core Configuration
 [done] Set up a Python virtual environment (e.g., using venv ).
 [done] Activate the virtual environment.
 1.2. Install Dependencies:
-[ ] Install gradio: pip install gradio
-[ ] Install the required Google Generative AI SDK: pip install google-genai (as per [package] rule).
-[ ] Install Pillow if any image handling is anticipated for future phases (as suggested by the TOML's code example): pip install Pillow.
+[done] Install gradio: pip install gradio
+[done] Install the required Google Generative AI SDK: pip install google-genai (as per [package] rule).
+[done] Install Pillow if any image handling is anticipated for future phases (as suggested by the TOML's code example): pip install Pillow.
 [ ] Install any other necessary utility libraries.
 1.3. API Key Management (Strict Adherence to [api_keys] rules):
 [ ] Ensure the GEMINI_API_KEY environment variable is set in your development and deployment environments.

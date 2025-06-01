@@ -25,22 +25,21 @@ You are an expert storyteller. Your task is to generate a complete, short story 
 
 Follow these instructions precisely:
 1.  **Subject**: "{subject}"
-2.  **Characters**: First, invent two distinct characters. Give each a name and a one-sentence description of their personality.
-3.  **Structure**: The story must have a complete narrative arc, including a clear beginning, a moment of conflict or discovery, and a satisfying resolution.
-4.  **Length**: The final script should be approximately 200-250 words.
-5.  **Output Format**:
+2.  **Structure**: The story must have a complete narrative arc, including a clear beginning, a moment of conflict or discovery, and a satisfying resolution.
+3.  **Length**: The final script should be approximately 200-250 words.
+4.  **Output Format**:
     - The very first line must be the style or tone of the story (e.g., "Style: Mysterious Thriller").
-    - Use the character names you invented as speaker labels (e.g., "Kaelen:").
+    - Use the character names you invented as speaker labels (e.g., "Speaker 1:, Speaker 2:").
     - Do NOT include the character descriptions in the final output.
     - Do NOT include any SRT formatting, timestamps, or any text other than the style line and the dialogue.
 
 Example of the required final output format:
 Style: Hopeful Drama
 
-Marcus: I don't know if I can do this. The storm washed everything away.
-Lena: Not everything, Marcus. We're still here. We can rebuild.
-Marcus: With what? We have nothing left.
-Lena: We have each other. And we have a sunrise. It's a start.
+Speaker 1: لا أعرف إذا كنت أستطيع فعل هذا. العاصفة جرفت كل شيء بعيدًا.
+Speaker 2: ليس كل شيء، ماركوس. ما زلنا هنا. يمكننا إعادة البناء.
+Speaker 1: بماذا؟ لم يبقَ لدينا شيء.
+Speaker 2: لدينا بعضنا البعض. ولدينا شروق الشمس. إنها بداية.
 """
     contents = [
         genai.types.Content(
@@ -98,3 +97,6 @@ if __name__ == "__main__":
         print("Error: GEMINI_API_KEY environment variable not set. Please set it before running.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+
