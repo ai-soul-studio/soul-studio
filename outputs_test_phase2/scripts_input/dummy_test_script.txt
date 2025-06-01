@@ -1,0 +1,5 @@
+Style: Epic Fantasy Narration
+Narrator: In a land of myth, and a time of magic...
+Speaker 1: The dragon approaches!
+Speaker 2: We must stand our ground!
+Narrator: And so, the battle began.
