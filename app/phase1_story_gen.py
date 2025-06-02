@@ -22,8 +22,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 @retry(
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=1, min=config.API_RETRY_DELAY_MIN, max=config.API_RETRY_DELAY_MAX),
+    stop=stop_after_attempt(config.API_RETRY_ATTEMPTS),
     retry=retry_if_exception_type(Exception), # Catch all exceptions for retry
     reraise=True
 )
@@ -110,8 +110,8 @@ def generate_search_query(client, model_name: str, subject: str, user_prompt: st
         return " ".join(fallback_query_parts)
 
 @retry(
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=1, min=config.API_RETRY_DELAY_MIN, max=config.API_RETRY_DELAY_MAX),
+    stop=stop_after_attempt(config.API_RETRY_ATTEMPTS),
     retry=retry_if_exception_type(Exception), # Catch all exceptions for retry
     reraise=True
 )

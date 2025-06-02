@@ -2,13 +2,31 @@ import mimetypes
 import struct
 import os
 import re
+import logging
+from typing import Dict, Union, Optional
 
-def save_binary_file(file_name, data):
-    """Saves binary data to a file."""
-    os.makedirs(os.path.dirname(file_name), exist_ok=True)
-    with open(file_name, "wb") as f:
-        f.write(data)
-    print(f"File saved to: {file_name}")
+# Configure logging
+logger = logging.getLogger(__name__)
+
+def save_binary_file(file_name: str, data: bytes) -> bool:
+    """Saves binary data to a file.
+    
+    Args:
+        file_name (str): Path where the file should be saved
+        data (bytes): Binary data to save
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        os.makedirs(os.path.dirname(file_name), exist_ok=True)
+        with open(file_name, "wb") as f:
+            f.write(data)
+        logger.info(f"File saved to: {file_name}")
+        return True
+    except Exception as e:
+        logger.error(f"Error saving file {file_name}: {e}")
+        return False
 
 def convert_to_wav(audio_data: bytes, mime_type: str) -> bytes:
     """Generates a WAV file header for the given audio data and parameters.
@@ -50,7 +68,7 @@ def convert_to_wav(audio_data: bytes, mime_type: str) -> bytes:
     )
     return header + audio_data
 
-def parse_audio_mime_type(mime_type: str) -> dict[str, int | None]:
+def parse_audio_mime_type(mime_type: str) -> Dict[str, Optional[int]]:
     """Parses bits per sample and rate from an audio MIME type string.
 
     Assumes bits per sample is encoded like "L16" and rate as "rate=xxxxx".
@@ -60,7 +78,7 @@ def parse_audio_mime_type(mime_type: str) -> dict[str, int | None]:
 
     Returns:
         A dictionary with "bits_per_sample" and "rate" keys. Values will be
-        integers if found, otherwise None.
+        integers if found, otherwise default values.
     """
     bits_per_sample = 16  # Default
     rate = 24000          # Default

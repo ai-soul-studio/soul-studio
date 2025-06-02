@@ -4,9 +4,14 @@ from google import genai
 from google.genai import types
 from pydub import AudioSegment
 from .utils import save_binary_file, convert_to_wav, parse_audio_mime_type
+from . import config
 import mimetypes
 import datetime # Moved import to top
 import time # For rate limiting
+import logging
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 def parse_script_file(script_file_path: str) -> list[dict]:
     """
@@ -102,8 +107,8 @@ def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str, def
     total_segments = len(script_segments)
     print(f"Found {total_segments} segments to process.")
 
-    # Define a pool of available voices
-    available_voices = ["Zephyr", "Puck", "Umbriel", "Erinome", "Fable", "Adonis", "Aphrodite", "Apollo", "Artemis", "Athena", "Atlas", "Aura", "Boreas", "Castor", "Circe", "Daphne", "Echo", "Eros", "Freya", "Hades", "Hera", "Hermes", "Hestia", "Iris", "Janus", "Juno", "Loki", "Luna", "Mars", "Mercury", "Minerva", "Morpheus", "Nemesis", "Nereus", "Odin", "Orion", "Pan", "Persephone", "Phoebe", "Pluto", "Poseidon", "Rhea", "Selene", "Sol", "Terra", "Thalia", "Titan", "Venus", "Vesta", "Vulcan", "Zeus"]
+    # Use available voices from configuration
+    available_voices = config.AVAILABLE_VOICES
     
     # Initialize speaker voice map and a counter for round-robin assignment
     speaker_voice_map = {}
@@ -147,14 +152,14 @@ def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str, def
                 contents=contents, 
                 generation_config=generate_content_config
             )
-            time.sleep(6) # Wait for 6 seconds to respect 10 RPM limit
+            time.sleep(config.TTS_RATE_LIMIT_DELAY) # Wait to respect API rate limits
         except Exception as e:
-            print(f"Error calling Gemini API for segment {i} ('{text_to_speak[:30]}...'): {e}")
+            logger.error(f"Error calling Gemini API for segment {i} ('{text_to_speak[:30]}...'): {e}")
             processed_audio_segments_info.append({
                 "text": text_to_speak, "speaker": speaker_label, "duration_ms": 0, "audio_segment": None
             })
             if "RESOURCE_EXHAUSTED" in str(e):
-                print("Rate limit likely hit. Consider increasing sleep time or checking API quota.")
+                logger.warning("Rate limit likely hit. Consider increasing sleep time or checking API quota.")
             continue
 
         audio_data_bytes = None

@@ -1,4 +1,40 @@
-# AI Storyteller with Multi-Speaker TTS
+# Audio Analyzer: Script to Speech & Subtitles
+
+A comprehensive AI-powered application that generates story scripts, converts them to multi-speaker audio, and creates synchronized SRT subtitles. Now enhanced with image generation capabilities and improved error handling.
+
+## ✨ Features
+
+- **AI Script Generation**: Generate compelling scripts using Google's Gemini 2.5 Flash model
+- **Multi-Speaker TTS**: Convert scripts to natural-sounding speech with multiple voices
+- **SRT Subtitle Generation**: Create synchronized subtitle files
+- **Image Generation**: Generate visual content using Google's Imagen 3.0 model
+- **Web Search Integration**: Enhance scripts with real-time web search context
+- **Gradio Web Interface**: User-friendly web interface for all features
+- **Robust Error Handling**: Comprehensive logging and retry mechanisms
+- **Configurable Settings**: Centralized configuration management
+
+## 🚀 Recent Improvements
+
+### Code Quality Enhancements
+- ✅ Updated to use latest Google Genai SDK (`google-genai` instead of deprecated `google-generative-ai`)
+- ✅ Proper import statements following best practices
+- ✅ Centralized configuration management
+- ✅ Comprehensive error handling and logging
+- ✅ Type hints for better code maintainability
+- ✅ Retry mechanisms with exponential backoff
+- ✅ Rate limiting for API calls
+
+### New Features
+- 🆕 Image generation module using Imagen 3.0
+- 🆕 Enhanced web search with better error handling
+- 🆕 Improved audio processing utilities
+- 🆕 Comprehensive test suite
+- 🆕 Better voice assignment for multi-speaker content
+
+### Security Improvements
+- 🔒 Environment variable validation
+- 🔒 API key security best practices
+- 🔒 Input sanitization and validation
 
 This project creates a web application using Gradio where a user can input a subject, get an AI-generated story in SRT format, and then convert that SRT into a multi-speaker audio narration using Google's Generative AI models.
 

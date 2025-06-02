@@ -5,11 +5,19 @@ BASE_OUTPUT_DIR = "outputs"
 OUTPUT_SCRIPT_DIR = os.path.join(BASE_OUTPUT_DIR, "scripts")
 OUTPUT_AUDIO_DIR = os.path.join(BASE_OUTPUT_DIR, "audio")
 OUTPUT_SRT_DIR = os.path.join(BASE_OUTPUT_DIR, "srt")
+OUTPUT_IMAGE_DIR = os.path.join(BASE_OUTPUT_DIR, "images")
 
 # --- Gemini API Configuration ---
-# Model names
+# Model names (using latest model names as per custom instructions)
 GEMINI_STORY_GEN_MODEL = "gemini-2.5-flash-preview-05-20"
 GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts"
+GEMINI_IMAGE_MODEL = "models/imagen-3.0-generate-002"
+
+# --- API Configuration ---
+API_RETRY_ATTEMPTS = 5
+API_RETRY_DELAY_MIN = 4
+API_RETRY_DELAY_MAX = 10
+TTS_RATE_LIMIT_DELAY = 6  # seconds between TTS requests
 
 # Default voices for TTS
 DEFAULT_VOICE_NARRATOR = "Umbriel"
