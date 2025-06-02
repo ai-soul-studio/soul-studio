@@ -1,91 +1,158 @@
 import gradio as gr
 import os
-from .phase1_story_gen import generate_story_script # Changed import
-from .phase2_tts import convert_script_to_speech_and_srt # To be created in phase2_tts.py
+from dotenv import load_dotenv
+from app.phase1_story_gen import generate_script
+from app.phase2_tts import convert_script_to_speech_and_srt
+from app import config # Import config
 
-# Ensure output directories exist
-OUTPUTS_DIR = os.path.join(os.getcwd(), "outputs")
-SCRIPT_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "scripts") # Changed from srt to scripts
-AUDIO_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "audio")
-SRT_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "srt_final") # For final SRT after TTS
+# Load environment variables
+load_dotenv()
 
-os.makedirs(SCRIPT_OUTPUT_DIR, exist_ok=True)
-os.makedirs(AUDIO_OUTPUT_DIR, exist_ok=True)
-os.makedirs(SRT_OUTPUT_DIR, exist_ok=True)
+# --- Output Directories ---
+# Use configurations from config.py
+OUTPUT_SCRIPT_DIR = config.OUTPUT_SCRIPT_DIR
+OUTPUT_AUDIO_DIR = config.OUTPUT_AUDIO_DIR
+OUTPUT_SRT_DIR = config.OUTPUT_SRT_DIR
 
-def handle_generate_script(subject: str) -> tuple[str, str]:
-    """
-    Handles the story script generation and saving, updating the UI.
-    """
-    if not subject:
-        return "Please enter a subject for the story.", None
+os.makedirs(OUTPUT_SCRIPT_DIR, exist_ok=True)
+os.makedirs(OUTPUT_AUDIO_DIR, exist_ok=True)
+os.makedirs(OUTPUT_SRT_DIR, exist_ok=True)
 
+# --- State Variables ---
+script_path_state = gr.Textbox(label="script_path_state_hidden", visible=False, interactive=True)
+
+# --- Helper Functions ---
+def handle_generate_script(
+    subject_type,
+    story_length,
+    complexity,
+    user_prompt,
+    style_primary,
+    style_secondary,
+    enable_web_search,
+    additional_instructions,
+    language # Added language parameter
+):
+    """Handles the story script generation."""
     try:
-        script_file_path = generate_story_script(subject, OUTPUTS_DIR)
-        return f"Script generated and saved to: {script_file_path}", script_file_path
-    except KeyError:
-        return "Error: GEMINI_API_KEY environment variable not set. Please set it before running.", None
+        script_path = generate_script(
+            subject=user_prompt, # Pass user_prompt as subject
+            subject_type=subject_type,
+            story_length=story_length,
+            complexity=complexity,
+            user_prompt=user_prompt, # Keep user_prompt for internal use if needed by prompt engineering
+            style_primary=style_primary,
+            style_secondary=style_secondary,
+            use_web_search=enable_web_search,
+            additional_instructions=additional_instructions,
+            language=language,
+            output_dir=OUTPUT_SCRIPT_DIR
+        )
+        if script_path and os.path.exists(script_path):
+            # Removed the third script_path output, which was for generated_script_path_display
+            return script_path, f"Script generated: {os.path.basename(script_path)}", gr.update(value=None), gr.update(value=None)
+        else:
+            # Ensure the number of return values matches the modified outputs list
+            return gr.update(value=None), "Error: Script generation failed. Path not returned or file does not exist.", gr.update(value=None), gr.update(value=None)
+    except KeyError as e:
+        if "GEMINI_API_KEY" in str(e):
+            return gr.update(value=None), "Error: GEMINI_API_KEY not found. Please set it in your .env file or environment variables.", gr.update(value=None), gr.update(value=None)
+        return gr.update(value=None), f"Error generating script: {e}", gr.update(value=None), gr.update(value=None)
     except Exception as e:
-        return f"An error occurred during script generation: {e}", None
+        return gr.update(value=None), f"An unexpected error occurred: {e}", gr.update(value=None), gr.update(value=None)
 
-def handle_generate_speech_and_srt(script_file_from_state: str, script_file_from_upload: gr.File = None) -> tuple[str, str, str]:
-    """
-    Handles the speech generation from script and final SRT creation, updating the UI.
-    Prioritizes uploaded script file if available.
-    """
-    script_to_process = None
+def handle_generate_speech_and_srt(script_file_from_state, script_file_from_upload, default_voice_selection): # Added default_voice_selection
+    """Handles speech and SRT generation from either generated or uploaded script."""
+    final_script_path = None
     if script_file_from_upload is not None:
-        script_to_process = script_file_from_upload.name # .name gives the temp path of the uploaded file
+        final_script_path = script_file_from_upload.name # Gradio provides a temp file path
+        print(f"Processing uploaded script: {final_script_path}")
     elif script_file_from_state and os.path.exists(script_file_from_state):
-        script_to_process = script_file_from_state
-    
-    if not script_to_process:
-        return "Please generate or upload a script file first.", None, None
-    
-    if not os.path.exists(script_to_process):
-        return f"Script file not found: {script_to_process}", None, None
+        final_script_path = script_file_from_state
+        print(f"Processing generated script from state: {final_script_path}")
+    else:
+        return "Error: No script provided or generated script path is invalid.", gr.update(value=None), gr.update(value=None), gr.update() # Keep state as is
+
+    if not final_script_path:
+        return "Error: Script path is missing.", gr.update(value=None), gr.update(value=None), gr.update() # Keep state as is
 
     try:
-        # This function will now return paths for both audio and the new SRT
-        audio_file_path, final_srt_path = convert_script_to_speech_and_srt(script_to_process, OUTPUTS_DIR)
-        return f"Audio generated: {audio_file_path}\nSRT generated: {final_srt_path}", audio_file_path, final_srt_path
-    except KeyError:
-        return "Error: GEMINI_API_KEY environment variable not set. Please set it before running.", None, None
+        audio_output_path, srt_output_path = convert_script_to_speech_and_srt(
+            script_file_path=final_script_path,
+            output_dir=config.BASE_OUTPUT_DIR, # Use BASE_OUTPUT_DIR from config
+            default_voice_selection=default_voice_selection # Pass default_voice_selection
+        )
+        if audio_output_path and srt_output_path:
+            return f"Audio and SRT generated!\nAudio: {os.path.basename(audio_output_path)}\nSRT: {os.path.basename(srt_output_path)}", audio_output_path, srt_output_path, gr.update() # Keep state as is
+        elif audio_output_path:
+            return f"Audio generated but SRT failed.\nAudio: {os.path.basename(audio_output_path)}", audio_output_path, gr.update(value=None), gr.update() # Keep state as is
+        else:
+            # convert_script_to_speech_and_srt might return None, None if an error occurred internally
+            return "Error: Speech and SRT generation failed. Check logs.", gr.update(value=None), gr.update(value=None), gr.update() # Keep state as is
+    except KeyError as e:
+        if "GEMINI_API_KEY" in str(e):
+            return "Error: GEMINI_API_KEY not found. Please set it in your .env file or environment variables.", gr.update(value=None), gr.update(value=None), gr.update()
+        return f"Error generating speech/SRT: {e}", gr.update(value=None), gr.update(value=None), gr.update()
     except Exception as e:
-        return f"An error occurred during audio/SRT generation: {e}", None, None
+        return f"An unexpected error occurred during speech/SRT generation: {e}", gr.update(value=None), gr.update(value=None), gr.update()
 
-with gr.Blocks() as demo:
-    gr.Markdown("# AI Storyteller with Multi-Speaker TTS")
+# --- Gradio Interface Definition ---
+with gr.Blocks(theme=gr.themes.Soft()) as demo:
+    gr.Markdown("#  Storyteller AI: Script to Speech & Subtitles")
+    gr.Markdown("Generate a story script using AI, then convert it to multi-speaker audio with synchronized SRT subtitles.")
 
     with gr.Row():
-        with gr.Column():
-            subject_input = gr.Textbox(label="Enter Story Subject", placeholder="e.g., A brave knight on a quest")
-            generate_script_btn = gr.Button("Generate Story Script") # Changed button text
-            script_output_message = gr.Textbox(label="Script Generation Status", interactive=False) # Changed label
-            script_file_path_state = gr.State(value=None) # To store the path of the generated script
+        with gr.Column(scale=1):
+            gr.Markdown("## Phase 1: Generate Story Script")
+            subject_type = gr.Dropdown(label="Subject Type", choices=["short story", "news report", "educational content", "dialogue", "monologue", "advertisement script", "podcast segment"], value="short story", allow_custom_value=True)
+            story_length = gr.Radio(label="Story Length", choices=["short", "medium", "long"], value="short") # Revert Radio component and fix default value
+            complexity = gr.Radio(label="Complexity", choices=["simple", "intermediate", "advanced"], value=config.DEFAULT_COMPLEXITY)
+            user_prompt = gr.Textbox(label="User Prompt", placeholder="e.g., A cat who dreams of flying", lines=3)
+            language = gr.Dropdown(label="Language", choices=["English", "Arabic"], value=config.DEFAULT_LANGUAGE, allow_custom_value=True)
+            style_primary = gr.Dropdown(label="Primary Style", choices=["narrative", "informative", "conversational", "dramatic", "humorous", "formal", "informal"], value=config.DEFAULT_PRIMARY_STYLE, allow_custom_value=True)
+            style_secondary = gr.Dropdown(label="Secondary Style (Optional)", choices=["none", "suspenseful", "uplifting", "factual", "technical"], value=config.DEFAULT_SECONDARY_STYLE, allow_custom_value=True)
+            enable_web_search = gr.Checkbox(label="Enable Web Search for Context", value=False)
+            additional_instructions = gr.Textbox(label="Additional Instructions (Optional)", placeholder="e.g., Ensure there are at least 3 characters. The story should have a surprise ending.", lines=2)
+
+            generate_script_btn = gr.Button("Generate Script", variant="primary")
+            script_output_status = gr.Textbox(label="Script Generation Status", interactive=False)
+            generated_script_path_display = gr.Textbox(label="Generated Script Path", interactive=False, visible=False) # For display/debug
+
+        with gr.Column(scale=1):
+            gr.Markdown("## Phase 2: Convert Script to Speech & SRT")
+            gr.Markdown("Uses the script generated in Phase 1 or an uploaded script.")
+            upload_script_file = gr.File(label="Upload Script File (Optional, .txt)", type="filepath", file_types=[".txt"])
             
-            gr.Markdown("--- OR ---")
-            script_file_upload = gr.File(label="Upload Script File (.txt)", file_types=[".txt"]) # Changed label and file type
+            # New voice selection dropdown
+            voice_choices = config.AVAILABLE_VOICES # Use voices from config
+            default_voice_selection = gr.Dropdown(label="Default Voice for Narration/Unassigned Speakers", choices=voice_choices, value=config.DEFAULT_VOICE_NARRATOR, allow_custom_value=True) # Use default from config
 
+            generate_speech_srt_btn = gr.Button("Generate Speech & SRT", variant="primary")
+            speech_srt_status = gr.Textbox(label="Speech & SRT Generation Status", interactive=False, lines=3)
+            
+            audio_output_display = gr.Audio(label="Generated Audio", type="filepath", interactive=False)
+            srt_output_display = gr.File(label="Generated SRT File", type="filepath", interactive=False, file_count="single")
 
-        with gr.Column():
-            process_output_message = gr.Textbox(label="Processing Status", interactive=False) # Combined status
-            audio_output = gr.Audio(label="Generated Audio", interactive=False)
-            # We might want a way to download/view the final SRT as well
-            final_srt_download = gr.File(label="Download Final SRT", interactive=False)
-            generate_audio_srt_btn = gr.Button("Convert Script to Speech & Generate SRT") # Changed button text
-
+    # --- Event Handlers ---
     generate_script_btn.click(
-        handle_generate_script, # Changed handler
-        inputs=[subject_input],
-        outputs=[script_output_message, script_file_path_state] # Changed output
+        fn=handle_generate_script,
+        inputs=[
+            subject_type, story_length, complexity, user_prompt,
+            style_primary, style_secondary, enable_web_search, additional_instructions,
+            language # Added language to inputs
+        ],
+        outputs=[script_path_state, script_output_status, audio_output_display, srt_output_display] # Clear previous audio/SRT, removed generated_script_path_display
     )
 
-    generate_audio_srt_btn.click(
-        handle_generate_speech_and_srt, # Changed handler
-        inputs=[script_file_path_state, script_file_upload],
-        outputs=[process_output_message, audio_output, final_srt_download] # Changed outputs
+    generate_speech_srt_btn.click(
+        fn=handle_generate_speech_and_srt,
+        inputs=[script_path_state, upload_script_file, default_voice_selection], # Added default_voice_selection to inputs
+        outputs=[speech_srt_status, audio_output_display, srt_output_display, script_path_state]
     )
 
 if __name__ == "__main__":
+    # Validate environment variable
+    if not os.getenv("GEMINI_API_KEY"):
+        raise EnvironmentError("GEMINI_API_KEY environment variable not set. Please set it before running.")
+    
     demo.launch(debug=True)

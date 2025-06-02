@@ -1,0 +1,119 @@
+{
+  "mcpServers": {
+    "@21st-dev/magic": {
+      "disabled": true,
+      "timeout": 60,
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=\"3347140ea9e6c9069d8016975a3b80a567c882fdfa2ff01a4df3110d4a864d53\""
+      ],
+      "transportType": "stdio"
+    },
+    "context7": {
+      "timeout": 300,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "transportType": "stdio",
+      "alwaysAllow": [],
+      "disabled": true
+    },
+    "mcp-server-firecrawl": {
+      "timeout": 300,
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-77f60f02d04245b7b9b73af8adaa65c0"
+      },
+      "transportType": "stdio",
+      "disabled": true,
+      "alwaysAllow": []
+    },
+    "sequential-thinking": {
+      "autoApprove": [
+        "sequentialthinking"
+      ],
+      "disabled": true,
+      "timeout": 300,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking@latest"
+      ],
+      "transportType": "stdio",
+      "alwaysAllow": []
+    },
+    "github.com/AgentDeskAI/browser-tools-mcp": {
+      "autoApprove": [],
+      "disabled": true,
+      "timeout": 60,
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@agentdeskai/browser-tools-mcp@latest"
+      ]
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/filesystem": {
+      "autoApprove": [],
+      "disabled": true,
+      "timeout": 60,
+      "command": "node",
+      "args": [
+        "C:\\Users\\yofii\\Documents\\Cline\\MCP\\modelcontextprotocol-servers\\src\\filesystem\\dist\\index.js",
+        "c:\\Users\\yofii\\2-platform\\plat\\the-vite"
+      ],
+      "transportType": "stdio"
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/puppeteer": {
+      "autoApprove": [],
+      "disabled": true,
+      "timeout": 60,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ],
+      "transportType": "stdio",
+      "alwaysAllow": []
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/memory": {
+      "autoApprove": [],
+      "disabled": true,
+      "timeout": 60,
+      "command": "node",
+      "args": [
+        "C:\\Users\\yofii\\Documents\\Cline\\MCP\\memory-server\\node_modules\\@modelcontextprotocol\\server-memory\\dist\\index.js"
+      ],
+      "transportType": "stdio"
+    },
+    "github.com/supabase-community/supabase-mcp": {
+      "autoApprove": [],
+      "disabled": true,
+      "timeout": 60,
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "sbp_17cdfd15a0b52fbad4ecaf3e38fe98b487bb7d18"
+      ],
+      "transportType": "",
+      "alwaysAllow": []
+    }
+  }
+}

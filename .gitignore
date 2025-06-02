@@ -12,3 +12,4 @@ venv/
 .env
 # Outputs
 outputs/
+python/

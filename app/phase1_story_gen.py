@@ -6,14 +6,108 @@ from google.genai import types # Import types
 from dotenv import load_dotenv
 from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type
 from datetime import datetime
+import logging # Import logging
 
 # Add the project root to the sys.path to allow absolute imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app.web_search import search_web, format_search_results
+from app import config # Import config
 
 # Load environment variables
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(5),
+    retry=retry_if_exception_type(Exception), # Catch all exceptions for retry
+    reraise=True
+)
+def generate_search_query(client, model_name: str, subject: str, user_prompt: str) -> str:
+    """
+    Generates an optimized web search query using the LLM based on the subject and user prompt.
+    """
+    prompt = f"""
+    Based on the following subject and user prompt, generate a concise and effective web search query.
+    The query should be optimized to find relevant information for generating a story script.
+    
+    Subject: {subject}
+    User Prompt: {user_prompt}
+    
+    Examples:
+    Subject: "Impact of AI on journalism in the Middle East"
+    User Prompt: "How is AI changing newsrooms?"
+    Search Query: "AI impact on Middle East journalism newsroom changes"
+    
+    Subject: "The basics of Quantum Computing"
+    User Prompt: "Explain quantum computing simply."
+    Search Query: "Quantum Computing basics simple explanation"
+    
+    Generate only the search query, no additional text.
+    """
+    
+    generation_config = {
+        "temperature": 0.1, # Keep temperature low for factual query generation
+        "top_p": 0.95,
+        "max_output_tokens": 100,
+    }
+
+    try:
+        response = client.models.generate_content(
+            model=model_name,
+            contents=[types.Content(parts=[types.Part.from_text(text=prompt)])],
+            generation_config=generation_config,
+        )
+        
+        generated_text = response.text
+        if generated_text is not None:
+            stripped_query = generated_text.strip()
+            if stripped_query: # Ensure it's not empty after stripping
+                return stripped_query
+            else:
+                logger.warning("Gemini returned an empty string for search query generation. Using fallback.")
+        else:
+            logger.warning("Gemini returned None for search query generation. Using fallback.")
+
+        # Fallback logic
+        fallback_query_parts = []
+        if subject and subject.strip():
+            fallback_query_parts.append(subject.strip())
+        if user_prompt and user_prompt.strip() and user_prompt.strip() not in (s.strip() for s in fallback_query_parts):
+            fallback_query_parts.append(user_prompt.strip())
+        
+        if not fallback_query_parts:
+            logger.warning("Subject and user_prompt are empty or identical for search query fallback. Using a generic query.")
+            return "general information" # A very generic fallback
+            
+        final_fallback_query = " ".join(fallback_query_parts)
+        logger.info(f"Using fallback search query: {final_fallback_query}")
+        return final_fallback_query
+
+    except AttributeError as ae: # Specifically catch AttributeError if .text is missing or similar
+        logger.error(f"AttributeError during search query generation (likely response.text was None or malformed): {ae}")
+         # Fallback logic (repeated for clarity, could be refactored into a helper)
+        fallback_query_parts = []
+        if subject and subject.strip():
+            fallback_query_parts.append(subject.strip())
+        if user_prompt and user_prompt.strip() and user_prompt.strip() not in (s.strip() for s in fallback_query_parts):
+            fallback_query_parts.append(user_prompt.strip())
+        if not fallback_query_parts: return "general information"
+        return " ".join(fallback_query_parts)
+    except Exception as e:
+        logger.error(f"Unexpected error generating search query: {e}")
+        # Fallback logic (repeated for clarity)
+        fallback_query_parts = []
+        if subject and subject.strip():
+            fallback_query_parts.append(subject.strip())
+        if user_prompt and user_prompt.strip() and user_prompt.strip() not in (s.strip() for s in fallback_query_parts):
+            fallback_query_parts.append(user_prompt.strip())
+        if not fallback_query_parts: return "general information"
+        return " ".join(fallback_query_parts)
 
 @retry(
     wait=wait_exponential(multiplier=1, min=4, max=10),
@@ -24,7 +118,7 @@ load_dotenv()
 def generate_script(
     subject: str,
     output_dir: str,
-    language: str = "Arabic",
+    language: str = "English",
     duration: str = "short",  # "short" (1-3 min), "medium" (4-7 min), "long" (8+ min)
     category: str = "Uncategorized",  # User-defined category
     content_type_area: str = "General",  # User-defined content type/area
@@ -35,7 +129,15 @@ def generate_script(
     tone: str = "neutral",  # neutral, humorous, dramatic, inspirational
     target_audience: str = "general public", # Specific target audience
     key_message: str = "No specific key message", # Central message to convey
-    emotional_arc: str = "neutral" # rising, falling, neutral, mixed
+    emotional_arc: str = "neutral", # rising, falling, neutral, mixed
+    # New parameters from Gradio UI
+    subject_type: str = "short story",
+    story_length: str = "short",
+    complexity: str = "simple",
+    user_prompt: str = "",
+    style_primary: str = "narrative",
+    style_secondary: str = "none",
+    additional_instructions: str = ""
 ) -> str:
     """
     Generates a script based on the subject and various content parameters.
@@ -67,17 +169,29 @@ def generate_script(
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
     # Use the specified model for text generation
-    model_name = "gemini-2.5-flash-preview-05-20"
+    model_name = config.GEMINI_STORY_GEN_MODEL
 
     web_context = ""
     
     if use_web_search:
         try:
-            # Perform web search
-            search_results = search_web(subject)
-            web_context = f"\n\nWeb Context:\n{format_search_results(search_results)}"
+            # Generate optimized search query using LLM
+            optimized_query = generate_search_query(client, model_name, subject, user_prompt)
+            logger.info(f"Generated search query: {optimized_query}")
+            
+            if optimized_query and len(optimized_query.strip()) > 3: # Basic check for a meaningful query (e.g., not just "a")
+                # Perform web search with the optimized query
+                search_results = search_web(optimized_query) # Assuming search_web can handle empty results gracefully
+                if search_results:
+                    web_context = f"\n\nWeb Context:\n{format_search_results(search_results)}"
+                else:
+                    logger.info(f"Web search with query '{optimized_query}' yielded no results.")
+                    web_context = "" # Ensure web_context is empty if no results
+            else:
+                logger.warning(f"Optimized search query ('{optimized_query}') was empty or too short. Skipping web search.")
+                web_context = ""
         except Exception as e:
-            print(f"Warning: Web search failed with error: {e}. Proceeding without web context.")
+            logger.warning(f"Web search attempt failed with error: {e}. Proceeding without web context.")
             web_context = ""
     
     # Determine approximate word count based on duration
@@ -97,6 +211,15 @@ def generate_script(
     prompt_text = f"""
 You are an expert AI scriptwriter specializing in {category} content. 
 Generate a compelling script in {language} based on these detailed specifications:
+
+**User-Provided Context**
+- Subject Type: {subject_type}
+- Story Length: {story_length}
+- Complexity: {complexity}
+- User Prompt: {user_prompt}
+- Primary Style (UI): {style_primary}
+- Secondary Style (UI): {style_secondary}
+- Additional Instructions: {additional_instructions}
 
 **Core Elements**
 - Subject: {subject}
@@ -164,29 +287,64 @@ Witness: شعرت بأنني جزء من شيء أكبر من ذاتي...
     }
 
     try:
-        # Stream response for better performance
+        # Generate content
         response = client.models.generate_content(
             model=model_name,
             contents=[types.Content(parts=[types.Part.from_text(text=prompt_text)])],
             generation_config=generation_config,
-            stream=True,
         )
-
-        # Stream and accumulate response
-        script_content = ""
-        for chunk in response:
-            if chunk.text:
-                script_content += chunk.text
+        
+        # Log prompt feedback for debugging
+        if hasattr(response, 'prompt_feedback') and response.prompt_feedback:
+            logger.info(f"Gemini prompt feedback for story generation: {response.prompt_feedback}")
+            if response.prompt_feedback.block_reason:
+                logger.error(f"Gemini content generation for story was blocked. Reason: {response.prompt_feedback.block_reason}. This may cause formatting issues.")
+        
+        # Ensure response.text exists and is not None before trying to validate
+        if not response.text:
+            logger.error("Gemini response for story generation is empty or None.")
+            raise ValueError("Generated script is empty or None from API.")
 
         # Robust validation of output format
-        if not script_content.strip().startswith(f"Style: {formatted_video_styles.split(',')[0].strip()}, Tone: {tone.capitalize()}"):
-            raise ValueError("Generated script does not adhere to the required starting format 'Style: [Primary Style], Tone: [Tone]'")
+        # Use a more flexible check for primary style if multiple styles are joined
+        primary_style_to_check = style_primary.strip() # Use the direct primary style from input
         
-        if not re.search(r"^\w+:", script_content, re.MULTILINE):
-            raise ValueError("Generated script does not contain clear speaker labels (e.g., 'Narrator:', 'Character 1:')")
+        # Check if the script starts with the expected format
+        # Make the check case-insensitive for style and tone for robustness
+        expected_start_pattern = re.compile(
+            rf"Style:\s*{re.escape(primary_style_to_check)}\s*,\s*Tone:\s*{re.escape(tone.capitalize())}",
+            re.IGNORECASE
+        )
+        
+        # Get the first line for checking
+        first_line = response.text.strip().split('\n', 1)[0]
 
+        if not expected_start_pattern.match(first_line):
+            logger.error(f"Generated script first line: '{first_line}'")
+            logger.error(f"Expected pattern: Style: {primary_style_to_check}, Tone: {tone.capitalize()}")
+            # Log the beginning of the problematic script for debugging
+            problematic_script_start = response.text[:500].replace('\n', '\\n') # Show first 500 chars, escape newlines for logging
+            logger.error(f"Start of problematic script (up to 500 chars): '{problematic_script_start}...'")
+            raise ValueError(f"Generated script does not adhere to the required starting format 'Style: [Primary Style], Tone: [Tone]'. Primary style checked: '{primary_style_to_check}', Tone: '{tone.capitalize()}'")
+        
+        if not re.search(r"^\s*\w+:", response.text, re.MULTILINE): # Allow leading spaces for speaker tags
+            problematic_script_start = response.text[:500].replace('\n', '\\n')
+            logger.error(f"Problematic script (up to 500 chars) lacking speaker labels: '{problematic_script_start}...'")
+            raise ValueError("Generated script does not contain clear speaker labels (e.g., 'Narrator:', 'Character 1:'). Ensure labels are at the start of a line.")
+
+    except types.StopCandidateException as sce: # More specific exception from Gemini
+        logger.error(f"Gemini API call for story generation stopped due to safety or other reasons: {sce}")
+        logger.error(f"Prompt feedback if available: {response.prompt_feedback if hasattr(response, 'prompt_feedback') else 'N/A'}")
+        if hasattr(response, 'text') and response.text:
+            problematic_script_start = response.text[:500].replace('\n', '\\n')
+            logger.error(f"Content generated before stop (up to 500 chars): '{problematic_script_start}...'")
+        raise # Re-raise for tenacity
     except Exception as e:
-        print(f"API call failed: {e}")
+        logger.error(f"API call for story generation failed: {e}")
+        # Check if response and response.text exist before trying to log
+        if 'response' in locals() and hasattr(response, 'text') and response.text:
+            problematic_script_start = response.text[:500].replace('\n', '\\n')
+            logger.error(f"Content generated before error (if any, up to 500 chars): '{problematic_script_start}...'")
         raise # Re-raise the exception for tenacity to catch and retry
 
     # Save with descriptive filename
@@ -207,20 +365,21 @@ Witness: شعرت بأنني جزء من شيء أكبر من ذاتي...
     ]
     file_name = "_".join(part for part in file_name_parts if part) + ".txt"
     
-    script_file_path = os.path.join(output_dir, "scripts", file_name)
+    script_file_path = os.path.join(output_dir, file_name)
 
     os.makedirs(os.path.dirname(script_file_path), exist_ok=True)
     with open(script_file_path, "w", encoding="utf-8") as f:
-        f.write(script_content)
+        f.write(response.text)
+    logger.info(f"Script saved to: {script_file_path}")
 
     return script_file_path
 
 if __name__ == "__main__":
     # Ensure the 'outputs/scripts' directory exists for testing
-    output_script_dir = os.path.join(os.getcwd(), "outputs")
-    os.makedirs(os.path.join(output_script_dir, "scripts"), exist_ok=True)
+    output_script_dir = os.path.join(os.getcwd(), config.OUTPUT_SCRIPT_DIR) # Use config
+    os.makedirs(output_script_dir, exist_ok=True)
     
-    print("🧪 Testing enhanced story generation...")
+    logger.info("🧪 Testing enhanced story generation...")
     
     tests = [
         {
@@ -236,7 +395,14 @@ if __name__ == "__main__":
             "creativity": 0.4,
             "target_audience": "journalists and media professionals",
             "key_message": "AI is transforming journalism, requiring adaptation and ethical considerations.",
-            "emotional_arc": "informative and slightly cautionary"
+            "emotional_arc": "informative and slightly cautionary",
+            "subject_type": "news report",
+            "story_length": "short",
+            "complexity": "intermediate",
+            "user_prompt": "How is AI changing newsrooms?",
+            "style_primary": "informative",
+            "style_secondary": "none",
+            "additional_instructions": "Focus on ethical challenges."
         },
         {
             "subject": "The basics of Quantum Computing",
@@ -251,7 +417,14 @@ if __name__ == "__main__":
             "creativity": 0.7,
             "target_audience": "high school students and general science enthusiasts",
             "key_message": "Quantum computing holds immense potential to revolutionize technology.",
-            "emotional_arc": "rising wonder and excitement"
+            "emotional_arc": "rising wonder and excitement",
+            "subject_type": "educational content",
+            "story_length": "medium",
+            "complexity": "simple",
+            "user_prompt": "Explain quantum computing simply.",
+            "style_primary": "informative",
+            "style_secondary": "technical",
+            "additional_instructions": "Use analogies."
         },
         {
             "subject": "Traditional folk tales from Kuwait",
@@ -266,22 +439,29 @@ if __name__ == "__main__":
             "creativity": 0.9,
             "target_audience": "children and cultural enthusiasts",
             "key_message": "Kuwaiti folk tales are rich in wisdom and cultural identity.",
-            "emotional_arc": "mixed, with moments of joy, sadness, and wisdom"
+            "emotional_arc": "mixed, with moments of joy, sadness, and wisdom",
+            "subject_type": "short story",
+            "story_length": "long",
+            "complexity": "advanced",
+            "user_prompt": "Tell a traditional Kuwaiti folk tale.",
+            "style_primary": "narrative",
+            "style_secondary": "dramatic",
+            "additional_instructions": "Include a moral lesson."
         }
     ]
     
     for i, test in enumerate(tests, 1):
-        print(f"\n🔬 Test #{i}: {test['subject']}")
+        logger.info(f"\n🔬 Test #{i}: {test['subject']}")
         try:
             start_time = datetime.now()
             script_path = generate_script(**test, output_dir=output_script_dir)
             gen_time = (datetime.now() - start_time).total_seconds()
             
-            print(f"✅ Generated in {gen_time:.1f}s: {os.path.basename(script_path)}")
+            logger.info(f"✅ Generated in {gen_time:.1f}s: {os.path.basename(script_path)}")
             with open(script_path, "r", encoding="utf-8") as f:
-                print(f"\n📝 Content sample:\n{f.read()[:200]}...")
+                logger.info(f"\n📝 Content sample:\n{f.read()[:200]}...")
                 
         except Exception as e:
-            print(f"❌ Failed: {str(e)}")
+            logger.error(f"❌ Failed: {str(e)}")
             # The retry mechanism is now handled by tenacity within generate_script
             # No need for manual retry logic here

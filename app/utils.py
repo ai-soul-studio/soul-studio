@@ -1,7 +1,7 @@
 import mimetypes
 import struct
 import os
-import re # <-- Move this line to the top
+import re
 
 def save_binary_file(file_name, data):
     """Saves binary data to a file."""

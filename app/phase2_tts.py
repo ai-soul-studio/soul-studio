@@ -29,12 +29,15 @@ def parse_script_file(script_file_path: str) -> list[dict]:
 
     # First line for style/tone
     first_line = lines[0].strip()
-    if first_line.lower().startswith("style:") or first_line.lower().startswith("tone:"):
-        overall_style = first_line.split(":", 1)[1].strip() if ":" in first_line else first_line
-        script_lines = lines[1:]
-    else:
-        # Assume no style line, all lines are script content
-        script_lines = lines
+    script_lines = lines[1:] # Assume first line is always metadata
+
+    style_match = re.search(r"Style:\s*([^,]+)", first_line, re.IGNORECASE)
+    tone_match = re.search(r"Tone:\s*([^,]+)", first_line, re.IGNORECASE)
+
+    extracted_styles = style_match.group(1).strip() if style_match else "Unknown Style"
+    extracted_tone = tone_match.group(1).strip() if tone_match else "Unknown Tone"
+    
+    overall_style = f"Style: {extracted_styles}, Tone: {extracted_tone}"
 
     for line in script_lines:
         line = line.strip()
@@ -72,7 +75,7 @@ def _ms_to_srt_time(total_ms: int) -> str:
     milliseconds = total_ms % 1000
     return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
 
-def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str) -> tuple[str | None, str | None]:
+def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str, default_voice_selection: str = "Erinome") -> tuple[str | None, str | None]:
     """
     Converts a script file into multi-speaker audio, then generates an SRT file based on audio durations.
 
@@ -90,7 +93,7 @@ def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str) -> 
         return None, None
 
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    tts_model_name = "gemini-2.5-flash-preview-tts"
+    tts_model_name = "models/gemini-2.5-flash-preview-tts" # Added models/ prefix
     
     combined_audio = AudioSegment.empty()
     processed_audio_segments_info = [] # To store {'text', 'speaker', 'duration_ms'}
@@ -99,13 +102,22 @@ def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str) -> 
     total_segments = len(script_segments)
     print(f"Found {total_segments} segments to process.")
 
-    speaker_voice_map = {
-        "Speaker 1": "Zephyr",
-        "Speaker 2": "Puck",
-        "Narrator": "Umbriel", # Added default for Narrator
-        # Add more mappings or a default if needed
-    }
-    default_voice = "Erinome" # Changed to a valid voice from the error log
+    # Define a pool of available voices
+    available_voices = ["Zephyr", "Puck", "Umbriel", "Erinome", "Fable", "Adonis", "Aphrodite", "Apollo", "Artemis", "Athena", "Atlas", "Aura", "Boreas", "Castor", "Circe", "Daphne", "Echo", "Eros", "Freya", "Hades", "Hera", "Hermes", "Hestia", "Iris", "Janus", "Juno", "Loki", "Luna", "Mars", "Mercury", "Minerva", "Morpheus", "Nemesis", "Nereus", "Odin", "Orion", "Pan", "Persephone", "Phoebe", "Pluto", "Poseidon", "Rhea", "Selene", "Sol", "Terra", "Thalia", "Titan", "Venus", "Vesta", "Vulcan", "Zeus"]
+    
+    # Initialize speaker voice map and a counter for round-robin assignment
+    speaker_voice_map = {}
+    voice_index = 0
+    
+    # Assign voices to speakers in the script
+    for segment in script_segments:
+        speaker_label = segment["speaker"]
+        if speaker_label not in speaker_voice_map:
+            speaker_voice_map[speaker_label] = available_voices[voice_index % len(available_voices)]
+            voice_index += 1
+    
+    # Default voice if a speaker somehow doesn't get mapped
+    default_voice = default_voice_selection
 
     temp_audio_processing_dir = os.path.join(output_dir, "audio", "temp_segments")
     os.makedirs(temp_audio_processing_dir, exist_ok=True)
@@ -131,7 +143,9 @@ def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str) -> 
 
         try:
             response = client.models.generate_content(
-                model=tts_model_name, contents=contents, config=generate_content_config
+                model=tts_model_name, 
+                contents=contents, 
+                generation_config=generate_content_config
             )
             time.sleep(6) # Wait for 6 seconds to respect 10 RPM limit
         except Exception as e:
@@ -245,7 +259,7 @@ def convert_script_to_speech_and_srt(script_file_path: str, output_dir: str) -> 
     
     srt_file_path = None
     if srt_content:
-        final_srt_dir = os.path.join(output_dir, "srt_final")
+        final_srt_dir = os.path.join(output_dir, "srt")
         os.makedirs(final_srt_dir, exist_ok=True)
         srt_file_name = f"final_story_{ts}.srt"
         srt_file_path = os.path.join(final_srt_dir, srt_file_name)
