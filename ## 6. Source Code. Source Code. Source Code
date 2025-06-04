@@ -1,0 +1,47 @@
+## 6. Source Code
+1. Go to  "init.py"and update with the following content:
+
+```
+from . import agent
+```
+
+
+```
+from . import agent
+```
+
+1. Go to agent.py and update the file with following content from the following path:
+
+```
+https://github.com/AbiramiSukumaran/adk-renovation-single-agent/blob/main/agent.py
+```
+
+
+```
+https://github.com/AbiramiSukumaran/adk-renovation-single-agent/blob/main/agent.py
+```
+
+In agent.py, we import necessary dependencies, retrieve configuration parameters from the .env file and define the root_agent which generates a proposal document and stores it in a Cloud Storage Bucket. To do the Cloud Storage step, we use a tool called store_pdf.
+1. Make sure you have the Cloud Storage Bucket
+This is to store the proposal document that the agent generates. Create it and provide access so the multi-agent system created with Vertex AI can access it. Here is how you can do it:
+
+```
+https://cloud.google.com/storage/docs/creating-buckets#console
+```
+
+
+```
+https://cloud.google.com/storage/docs/creating-buckets#console
+```
+
+Name your bucket "next-demo-store". If you name it something else, remember to update the value of STORAGE_BUCKET in the .env file (in the ENV Variables Setup step).
+
+```
+next-demo-store
+```
+
+1. Create dependencies list
+List all dependencies in requirements.txt. You can copy this from  [repo](https://github.com/AbiramiSukumaran/adk-renovation-single-agent/blob/main/requirements.txt).
+
+## Multi-agent System Source Code Explanation
+The agent.py file defines the structure and behavior of our kitchen renovation multi-agent system using the Agent Development Kit (ADK). Let's break down the key components:

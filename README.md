@@ -1,116 +1,105 @@
-# Audio Analyzer: Script to Speech & Subtitles
+# AI Storyteller: Script to Video Pipeline
 
-A comprehensive AI-powered application that generates story scripts, converts them to multi-speaker audio, and creates synchronized SRT subtitles. Now enhanced with image generation capabilities and improved error handling.
+An end-to-end AI-powered content creation pipeline that generates stories, converts them to multi-speaker audio with subtitles, creates visual content, and compiles everything into engaging videos.
 
 ## ✨ Features
 
-- **AI Script Generation**: Generate compelling scripts using Google's Gemini 2.5 Flash model
-- **Multi-Speaker TTS**: Convert scripts to natural-sounding speech with multiple voices
-- **SRT Subtitle Generation**: Create synchronized subtitle files
-- **Image Generation**: Generate visual content using Google's Imagen 3.0 model
+### Core Functionality
+- **AI-Powered Script Generation**: Create compelling stories using Google's Gemini 2.5 Flash model
+- **Multi-Speaker TTS**: Convert scripts to natural-sounding speech with 50+ distinct voices
+- **SRT Subtitle Generation**: Automatically generate synchronized subtitle files
+- **AI Image Generation**: Create visual content using Google's Imagen 3.0 model
+- **Video Production**: Compile audio, images, and subtitles into polished videos
+
+### Advanced Capabilities
 - **Web Search Integration**: Enhance scripts with real-time web search context
-- **Gradio Web Interface**: User-friendly web interface for all features
-- **Robust Error Handling**: Comprehensive logging and retry mechanisms
-- **Configurable Settings**: Centralized configuration management
+- **Multi-Character Dialog**: Support for multiple speakers with distinct voices
+- **Customizable Art Styles**: Choose from various art styles for generated images
+- **Flexible Output Formats**: Export in multiple video resolutions and qualities
 
-## 🚀 Recent Improvements
-
-### Code Quality Enhancements
-- ✅ Updated to use latest Google Genai SDK (`google-genai` instead of deprecated `google-generative-ai`)
-- ✅ Proper import statements following best practices
-- ✅ Centralized configuration management
-- ✅ Comprehensive error handling and logging
-- ✅ Type hints for better code maintainability
-- ✅ Retry mechanisms with exponential backoff
-- ✅ Rate limiting for API calls
-
-### New Features
-- 🆕 Image generation module using Imagen 3.0
-- 🆕 Enhanced web search with better error handling
-- 🆕 Improved audio processing utilities
-- 🆕 Comprehensive test suite
-- 🆕 Better voice assignment for multi-speaker content
-
-### Security Improvements
-- 🔒 Environment variable validation
-- 🔒 API key security best practices
-- 🔒 Input sanitization and validation
-
-This project creates a web application using Gradio where a user can input a subject, get an AI-generated story in SRT format, and then convert that SRT into a multi-speaker audio narration using Google's Generative AI models.
-
-## Setup Instructions
-
-1.  **Clone the repository (if not already done):**
-    ```bash
-    git clone <repository_url>
-    cd audio-analyzer-srt-&-vision
-    ```
-
-2.  **Create and activate a Python virtual environment:**
-    ```bash
-    python -m venv .venv
-    # On Windows:
-    .venv\Scripts\activate
-    # On macOS/Linux:
-    source .venv/bin/activate
-    ```
-
-3.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **Set your Google Gemini API Key:**
-    The application requires your Google Gemini API key to be set as an environment variable named `GEMINI_API_KEY`.
-    
-    **Important:** Do NOT hardcode your API key in any files.
-
-    *   **For Windows (Command Prompt):**
-        ```bash
-        set GEMINI_API_KEY=YOUR_API_KEY_HERE
-        ```
-    *   **For Windows (PowerShell):**
-        ```powershell
-        $env:GEMINI_API_KEY="YOUR_API_KEY_HERE"
-        ```
-    *   **For macOS/Linux:**
-        ```bash
-        export GEMINI_API_KEY=YOUR_API_KEY_HERE
-        ```
-    Replace `YOUR_API_KEY_HERE` with your actual Gemini API key. For persistent setting, you might add this to your system's environment variables or your shell's profile file (`.bashrc`, `.zshrc`, `config.fish`, etc.).
-
-5.  **Run the application:**
-    ```bash
-    python app/main.py
-    ```
-    This will launch the Gradio web interface, typically accessible at `http://127.0.0.1:7860/` (or a similar local address).
-
-## Project Structure
+## 🏗️ Project Structure
 
 ```
-/project_root
-|-- /app
-|   |-- main.py             # Gradio app and server logic
-|   |-- phase1_story_gen.py # Logic for story & SRT generation
-|   |-- phase2_tts.py       # Logic for TTS from SRT
-|   |-- utils.py            # Helper functions (optional)
-|-- /outputs
-|   |-- /srt                # To store generated SRT files
-|   |-- /audio              # To store generated audio files
-|-- requirements.txt        # List of dependencies (google-genai, gradio, etc.)
-|-- README.md
-|-- .gitignore
+app/
+├── config.py           # Configuration settings and constants
+├── image_generator.py   # Image generation using Imagen 3.0
+├── main.py             # Gradio web interface
+├── phase1_story_gen.py # Story generation logic
+├── phase2_tts.py       # Text-to-speech conversion
+├── phase4_video.py     # Video generation
+├── utils.py            # Utility functions
+└── web_search.py       # Web search functionality
 ```
 
-## Usage
+## 🚀 Getting Started
 
-1.  **Enter a Story Subject:** Type your desired subject into the text box.
-2.  **Generate Story (SRT):** Click this button to generate an SRT formatted story. The status will be displayed.
-3.  **Convert SRT to Speech:** Once the SRT is generated, click this button to convert it into an audio narration. The audio will be playable directly in the UI.
+### Prerequisites
+- Python 3.9+
+- Google API key with access to:
+  - Gemini 2.5 Flash
+  - Gemini TTS
+  - Imagen 3.0
+- FFmpeg (for video processing)
 
-## Future Work
+### Installation
 
-*   **Prompt Engineering:** Further refinement of prompts for better story and SRT generation.
-*   **Voice Assignment Logic:** Implement more sophisticated logic for assigning different voices to speakers in the TTS output, if the model supports it.
-*   **Error Handling & UI Improvements:** Enhance error messages and user experience.
-*   **Image Generation:** Integrate image generation based on story content using `models/imagen-3.0-generate-002` as per `.clinerules`.
+1. **Clone the repository**
+   ```bash
+   git clone <repository_url>
+   cd audio-analyzer-srt-&-vision
+   ```
+
+2. **Set up a virtual environment**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment variables**
+   Create a `.env` file in the project root with:
+   ```
+   GOOGLE_API_KEY=your_api_key_here
+   ```
+
+## 🎮 Usage
+
+1. **Start the application**
+   ```bash
+   python -m app.main
+   ```
+
+2. **Access the web interface**
+   Open your browser and navigate to `http://localhost:7860`
+
+3. **Follow the workflow**
+   - Phase 1: Generate your story script
+   - Phase 2: Convert to speech and generate subtitles
+   - Phase 3: Generate images for your story
+   - Phase 4: Compile everything into a video
+
+## ⚙️ Configuration
+
+Key configuration options in `app/config.py`:
+
+- **Output Directories**: Customize where generated files are saved
+- **API Settings**: Configure API endpoints and retry logic
+- **Default Voices**: Set default voices for different speaker types
+- **Generation Parameters**: Adjust story length, complexity, and style defaults
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

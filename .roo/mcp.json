@@ -22,7 +22,7 @@
       ],
       "transportType": "stdio",
       "alwaysAllow": [],
-      "disabled": true
+      "disabled": false
     },
     "mcp-server-firecrawl": {
       "timeout": 300,

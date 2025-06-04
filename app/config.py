@@ -6,17 +6,19 @@ OUTPUT_SCRIPT_DIR = os.path.join(BASE_OUTPUT_DIR, "scripts")
 OUTPUT_AUDIO_DIR = os.path.join(BASE_OUTPUT_DIR, "audio")
 OUTPUT_SRT_DIR = os.path.join(BASE_OUTPUT_DIR, "srt")
 OUTPUT_IMAGE_DIR = os.path.join(BASE_OUTPUT_DIR, "images")
+OUTPUT_VIDEO_DIR = os.path.join(BASE_OUTPUT_DIR, "videos")
 
 # --- Gemini API Configuration ---
 # Model names (using latest model names as per custom instructions)
 GEMINI_STORY_GEN_MODEL = "gemini-2.5-flash-preview-05-20"
-GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts"
+GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts" # Corrected model name
 GEMINI_IMAGE_MODEL = "models/imagen-3.0-generate-002"
+GEMINI_STORY_GEN_MODEL_MAX_TOKENS = 4096 # Added for phase1_story_gen.py
 
 # --- API Configuration ---
 API_RETRY_ATTEMPTS = 5
-API_RETRY_DELAY_MIN = 4
-API_RETRY_DELAY_MAX = 10
+API_RETRY_DELAY_MIN = 4 # Increased min delay
+API_RETRY_DELAY_MAX = 10 # Increased max delay
 TTS_RATE_LIMIT_DELAY = 6  # seconds between TTS requests
 
 # Default voices for TTS
@@ -48,3 +50,11 @@ DEFAULT_TONE = "neutral"
 DEFAULT_TARGET_AUDIENCE = "general public"
 DEFAULT_KEY_MESSAGE = "No specific key message"
 DEFAULT_EMOTIONAL_ARC = "neutral"
+
+# --- Image Generation Parameters (Defaults) ---
+DEFAULT_ART_STYLE = "cinematic"
+AVAILABLE_ART_STYLES = [
+    "cinematic", "photorealistic", "anime", "manga", "watercolor", "oil painting", 
+    "charcoal sketch", "pixel art", "vector art", "3d render", "fantasy art", 
+    "sci-fi concept art", "steampunk", "cyberpunk", "impressionistic", "surreal", "none"
+]

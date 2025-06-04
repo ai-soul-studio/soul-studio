@@ -1,0 +1,1066 @@
+Skip to main content
+- [Help](https://pypi.org/help/)
+- [Docs](https://docs.pypi.org/)
+- [Sponsors](https://pypi.org/sponsors/)
+- [Log in](https://pypi.org/account/login/)
+- [Register](https://pypi.org/account/register/)
+[Help](https://pypi.org/help/)
+[Docs](https://docs.pypi.org/)
+[Sponsors](https://pypi.org/sponsors/)
+[Log in](https://pypi.org/account/login/)
+[Register](https://pypi.org/account/register/)
+- [Help](https://pypi.org/help/)
+- [Sponsors](https://pypi.org/sponsors/)
+- [Log in](https://pypi.org/account/login/)
+- [Register](https://pypi.org/account/register/)
+[Help](https://pypi.org/help/)
+[Sponsors](https://pypi.org/sponsors/)
+[Log in](https://pypi.org/account/login/)
+[Register](https://pypi.org/account/register/)
+
+# google-adk 1.1.1
+
+pip install google-adk
+
+
+            Copy PIP instructions
+[Latest version](https://pypi.org/project/google-adk/)
+Released: 
+  May 29, 2025
+Agent Development Kit
+
+### Navigation
+- 
+                Project description
+
+- 
+                Release history
+
+- 
+                Download files
+
+Project description
+Release history
+Download files
+
+### Verified details
+[verified by PyPI](https://docs.pypi.org/project_metadata/)
+
+###### Maintainers
+[vertex_ai](https://pypi.org/user/vertex_ai/)
+
+### Unverified details
+
+###### Project links
+- 
+      [changelog](https://github.com/google/adk-python/blob/main/CHANGELOG.md)
+
+- 
+      [documentation](https://google.github.io/adk-docs/)
+
+- 
+      [homepage](https://google.github.io/adk-docs/)
+
+- 
+      [repository](https://github.com/google/adk-python)
+
+[changelog](https://github.com/google/adk-python/blob/main/CHANGELOG.md)
+[documentation](https://google.github.io/adk-docs/)
+[homepage](https://google.github.io/adk-docs/)
+[repository](https://github.com/google/adk-python)
+
+###### Meta
+- 
+
+        License: Apache Software License
+
+
+- 
+
+        Author: [Google LLC](mailto:googleapis-packages@google.com)
+
+
+- 
+
+      Requires: Python >=3.9
+
+
+- 
+
+      Provides-Extra: dev, docs, eval, extensions, test    
+
+[Google LLC](mailto:googleapis-packages@google.com)
+
+```
+dev
+```
+
+
+```
+docs
+```
+
+
+```
+eval
+```
+
+
+```
+extensions
+```
+
+
+```
+test
+```
+
+
+###### Classifiers
+- 
+      Intended Audience
+
+
+
+            Developers
+
+
+
+          [Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+
+
+
+- 
+          [Developers](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Developers)
+
+- 
+          [Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+
+- 
+      License
+
+
+          [OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+
+
+
+- 
+          [OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+
+- 
+      Operating System
+
+
+          [OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+
+
+
+- 
+          [OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+
+- 
+      Programming Language
+
+
+
+            Python
+
+
+
+
+            Python :: 3
+
+
+
+
+            Python :: 3.9
+
+
+
+
+            Python :: 3.10
+
+
+
+
+            Python :: 3.11
+
+
+
+
+            Python :: 3.12
+
+
+
+          [Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+
+
+
+- 
+          [Python](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python)
+
+- 
+          [Python :: 3](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3)
+
+- 
+          [Python :: 3.9](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.9)
+
+- 
+          [Python :: 3.10](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.10)
+
+- 
+          [Python :: 3.11](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.11)
+
+- 
+          [Python :: 3.12](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.12)
+
+- 
+          [Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+
+- 
+      Topic
+
+
+          [Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+
+
+
+- 
+          [Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+
+- 
+      Typing
+
+
+          [Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+
+
+- 
+          [Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+- 
+          [Developers](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Developers)
+
+- 
+          [Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+
+[Developers](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Developers)
+[Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+- 
+          [OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+
+[OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+- 
+          [OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+
+[OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+- 
+          [Python](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python)
+
+- 
+          [Python :: 3](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3)
+
+- 
+          [Python :: 3.9](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.9)
+
+-
+
+### Unverified details
+
+[Python :: 3.10](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.10)
+
+- 
+          [Python :: 3.11](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.11)
+
+- 
+          [Python :: 3.12](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.12)
+
+- 
+          [Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+
+[Python](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python)
+[Python :: 3](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3)
+[Python :: 3.9](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.9)
+[Python :: 3.10](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.10)
+[Python :: 3.11](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.11)
+[Python :: 3.12](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.12)
+[Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+- 
+          [Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+
+[Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+- 
+          [Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+[Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+[Report project as malware](https://pypi.org/project/google-adk/submit-malware-report/)
+- 
+              Project description
+
+- 
+              Project details
+
+- 
+              Release history
+
+- 
+              Download files
+
+Project description
+Project details
+Release history
+Download files
+
+### Important Links:
+
+Docs, 
+      Samples,
+      Java ADK &
+      [ADK Web](https://github.com/google/adk-web).
+[Docs](https://google.github.io/adk-docs/)
+[Samples](https://github.com/google/adk-samples)
+[Java ADK](https://github.com/google/adk-java)
+[ADK Web](https://github.com/google/adk-web)
+Agent Development Kit (ADK) is a flexible and modular framework for developing and deploying AI agents. While optimized for Gemini and the Google ecosystem, ADK is model-agnostic, deployment-agnostic, and is built for compatibility with other frameworks. ADK was designed to make agent development feel more like software development, to make it easier for developers to create, deploy, and orchestrate agentic architectures that range from simple tasks to complex workflows.
+
+## ✨ Key Features
+- 
+Rich Tool Ecosystem: Utilize pre-built tools, custom functions,
+OpenAPI specs, or integrate existing tools to give agents diverse
+capabilities, all for tight integration with the Google ecosystem.
+
+- 
+Code-First Development: Define agent logic, tools, and orchestration
+directly in Python for ultimate flexibility, testability, and versioning.
+
+- 
+Modular Multi-Agent Systems: Design scalable applications by composing
+multiple specialized agents into flexible hierarchies.
+
+- 
+Deploy Anywhere: Easily containerize and deploy agents on Cloud Run or
+scale seamlessly with Vertex AI Agent Engine.
+
+Rich Tool Ecosystem: Utilize pre-built tools, custom functions,
+OpenAPI specs, or integrate existing tools to give agents diverse
+capabilities, all for tight integration with the Google ecosystem.
+Code-First Development: Define agent logic, tools, and orchestration
+directly in Python for ultimate flexibility, testability, and versioning.
+Modular Multi-Agent Systems: Design scalable applications by composing
+multiple specialized agents into flexible hierarchies.
+Deploy Anywhere: Easily containerize and deploy agents on Cloud Run or
+scale seamlessly with Vertex AI Agent Engine.
+
+## 🤖 Agent2Agent (A2A) Protocol and ADK Integration
+For remote agent-to-agent communication, ADK integrates with the
+A2A protocol.
+See this [example](https://github.com/google/A2A/tree/main/samples/python/agents/google_adk)
+for how they can work together.
+
+### Stable Release (Recommended)
+You can install the latest stable version of ADK using pip:
+
+```
+pip
+```
+
+
+```
+pip install google-adk
+```
+
+The release cadence is weekly.
+This version is recommended for most users as it represents the most recent official release.
+
+### Development Version
+Bug fixes and new features are merged into the main branch on GitHub first. If you need access to changes that haven't been included in an official PyPI release yet, you can install directly from the main branch:
+
+```
+pip install git+https://github.com/google/adk-python.git@main
+```
+
+Note: The development version is built directly from the latest code commits. While it includes the newest fixes and features, it may also contain experimental changes or bugs not present in the stable release. Use it primarily for testing upcoming changes or accessing critical fixes before they are officially released.
+
+## 📚 Documentation
+
+Explore the full documentation for detailed guides on building, evaluating, and
+deploying agents:
+- [Documentation](https://google.github.io/adk-docs)
+[Documentation](https://google.github.io/adk-docs)
+
+### Define a single agent:
+```
+from google.adk.agents import Agent
+from google.adk.tools import google_search
+
+root_agent = Agent(
+    name="search_assistant",
+    model="gemini-2.0-flash", # Or your preferred Gemini model
+    instruction="You are a helpful assistant. Answer user questions using Google Search when needed.",
+    description="An assistant that can search the web.",
+    tools=[google_search]
+)
+```
+
+### Define a multi-agent system:
+Define a multi-agent system with coordinator agent, greeter agent, and task execution agent. Then ADK engine and the model will guide the agents works together to accomplish the task.
+
+```
+from google.adk.agents import LlmAgent, BaseAgent
+
+# Define individual agents
+greeter = LlmAgent(name="greeter", model="gemini-2.0-flash", ...)
+task_executor = LlmAgent(name="task_executor", model="gemini-2.0-flash", ...)
+
+# Create parent agent and assign children via sub_agents
+coordinator = LlmAgent(
+    name="Coordinator",
+    model="gemini-2.0-flash",
+    description="I coordinate greetings and tasks.",
+    sub_agents=[ # Assign sub_agents here
+        greeter,
+        task_executor
+    ]
+)
+```
+
+### Development UI
+A built-in development UI to help you test, evaluate, debug, and showcase your agent(s).
+
+### Evaluate Agents
+```
+adk eval \
+    samples_for_testing/hello_world \
+    samples_for_testing/hello_world/hello_world_eval_set_001.evalset.json
+```
+
+## 🤝 Contributing
+We welcome contributions from the community! Whether it's bug reports, feature requests, documentation improvements, or code contributions, please see our
+- [General contribution guideline and flow](https://google.github.io/adk-docs/contributing-guide/).
+- Then if you want to contribute code, please read [Code Contributing Guidelines](https://pypi.org/project/google-adk/CONTRIBUTING.md) to get started.
+[General contribution guideline and flow](https://google.github.io/adk-docs/contributing-guide/)
+[Code Contributing Guidelines](https://pypi.org/project/google-adk/CONTRIBUTING.md)
+
+## 📄 License
+This project is licensed under the Apache 2.0 License - see the [LICENSE](https://pypi.org/project/google-adk/LICENSE) file for details.
+Happy Agent Building!
+
+### Verified details
+
+[verified by PyPI](https://docs.pypi.org/project_metadata/)
+
+###### Maintainers
+[vertex_ai](https://pypi.org/user/vertex_ai/)
+
+### Unverified details
+
+###### Project links
+- 
+      [changelog](https://github.com/google/adk-python/blob/main/CHANGELOG.md)
+
+- 
+      [documentation](https://google.github.io/adk-docs/)
+
+- 
+      [homepage](https://google.github.io/adk-docs/)
+
+- 
+      [repository](https://github.com/google/adk-python)
+
+[changelog](https://github.com/google/adk-python/blob/main/CHANGELOG.md)
+[documentation](https://google.github.io/adk-docs/)
+[homepage](https://google.github.io/adk-docs/)
+[repository](https://github.com/google/adk-python)
+
+###### Meta
+- 
+
+        License: Apache Software License
+
+
+- 
+
+        Author: [Google LLC](mailto:googleapis-packages@google.com)
+
+
+- 
+
+      Requires: Python >=3.9
+
+
+- 
+
+      Provides-Extra: dev, docs, eval, extensions, test    
+
+[Google LLC](mailto:googleapis-packages@google.com)
+
+```
+dev
+```
+
+
+```
+docs
+```
+
+
+```
+eval
+```
+
+
+```
+extensions
+```
+
+
+```
+test
+```
+
+
+###### Classifiers
+- 
+      Intended Audience
+
+
+
+            Developers
+
+
+
+          [Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+
+
+
+- 
+          [Developers](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Developers)
+
+- 
+          [Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+
+- 
+      License
+
+
+          [OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+
+
+
+- 
+          [OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+
+- 
+      Operating System
+
+
+          [OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+
+
+
+- 
+          [OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+
+- 
+      Programming Language
+
+
+
+            Python
+
+
+
+
+            Python :: 3
+
+
+
+
+            Python :: 3.9
+
+
+
+
+            Python :: 3.10
+
+
+
+
+            Python :: 3.11
+
+
+
+
+            Python :: 3.12
+
+
+
+          [Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+
+
+
+- 
+          [Python](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python)
+
+- 
+          [Python :: 3](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3)
+
+- 
+          [Python :: 3.9](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.9)
+
+- 
+          [Python :: 3.10](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.10)
+
+- 
+          [Python :: 3.11](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.11)
+
+- 
+          [Python :: 3.12](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.12)
+
+- 
+          [Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+
+- 
+      Topic
+
+
+          [Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+
+
+
+- 
+          [Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+
+- 
+      Typing
+
+
+          [Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+
+
+- 
+          [Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+- 
+          [Developers](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Developers)
+
+- 
+          [Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+
+[Developers](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Developers)
+[Science/Research](https://pypi.org/search/?c=Intended+Audience+%3A%3A+Science%2FResearch)
+- 
+          [OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+
+[OSI Approved :: Apache Software License](https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Apache+Software+License)
+- 
+          [OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+
+[OS Independent](https://pypi.org/search/?c=Operating+System+%3A%3A+OS+Independent)
+- 
+          [Python](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python)
+
+- 
+          [Python :: 3](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3)
+
+- 
+          [Python :: 3.9](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.9)
+
+-
+
+### Unverified details
+
+[Python :: 3.10](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.10)
+
+- 
+          [Python :: 3.11](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.11)
+
+- 
+          [Python :: 3.12](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.12)
+
+- 
+          [Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+
+[Python](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python)
+[Python :: 3](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3)
+[Python :: 3.9](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.9)
+[Python :: 3.10](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.10)
+[Python :: 3.11](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.11)
+[Python :: 3.12](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.12)
+[Python :: 3.13](https://pypi.org/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.13)
+- 
+          [Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+
+[Software Development :: Libraries :: Python Modules](https://pypi.org/search/?c=Topic+%3A%3A+Software+Development+%3A%3A+Libraries+%3A%3A+Python+Modules)
+- 
+          [Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+[Typed](https://pypi.org/search/?c=Typing+%3A%3A+Typed)
+
+## Release history
+Release notifications |
+              [RSS feed](https://pypi.org/rss/project/google-adk/releases.xml)
+[Release notifications](https://pypi.org/help/)
+[RSS feed](https://pypi.org/rss/project/google-adk/releases.xml)
+[1.1.1
+
+
+
+  May 29, 2025](https://pypi.org/project/google-adk/1.1.1/)
+1.1.1
+May 29, 2025
+[1.1.0
+
+
+
+  May 28, 2025](https://pypi.org/project/google-adk/1.1.0/)
+1.1.0
+May 28, 2025
+[1.0.0
+
+
+
+  May 20, 2025](https://pypi.org/project/google-adk/1.0.0/)
+1.0.0
+May 20, 2025
+[0.5.0
+
+
+
+  May 8, 2025](https://pypi.org/project/google-adk/0.5.0/)
+0.5.0
+May 8, 2025
+[0.4.0
+
+
+
+  May 2, 2025](https://pypi.org/project/google-adk/0.4.0/)
+0.4.0
+May 2, 2025
+[0.3.0
+
+
+
+  Apr 24, 2025](https://pypi.org/project/google-adk/0.3.0/)
+0.3.0
+Apr 24, 2025
+[0.2.0
+
+
+
+  Apr 18, 2025](https://pypi.org/project/google-adk/0.2.0/)
+0.2.0
+Apr 18, 2025
+[0.1.1
+
+yanked                  
+
+
+
+  Apr 9, 2025
+
+
+
+                    Reason this release was yanked:
+                    image not rendering](https://pypi.org/project/google-adk/0.1.1/)
+0.1.1
+
+yanked
+Apr 9, 2025
+Reason this release was yanked:
+image not rendering
+[0.1.0
+
+
+
+  Apr 9, 2025](https://pypi.org/project/google-adk/0.1.0/)
+0.1.0
+Apr 9, 2025
+[0.0.5
+
+
+
+  Apr 9, 2025](https://pypi.org/project/google-adk/0.0.5/)
+0.0.5
+Apr 9, 2025
+[0.0.4
+
+
+
+  Apr 9, 2025](https://pypi.org/project/google-adk/0.0.4/)
+0.0.4
+Apr 9, 2025
+[0.0.3
+
+
+
+  Apr 8, 2025](https://pypi.org/project/google-adk/0.0.3/)
+0.0.3
+Apr 8, 2025
+[0.0.2
+
+
+
+  Apr 8, 2025](https://pypi.org/project/google-adk/0.0.2/)
+0.0.2
+Apr 8, 2025
+[0.0.1
+
+
+
+  Mar 17, 2025](https://pypi.org/project/google-adk/0.0.1/)
+0.0.1
+Mar 17, 2025
+
+## Download files
+Download the file for your platform. If you're not sure which to choose, learn more about [installing packages](https://packaging.python.org/tutorials/installing-packages/).
+
+### Source Distribution
+[google_adk-1.1.1.tar.gz](https://files.pythonhosted.org/packages/0f/38/a67f59a3ecf9630d93007848ec3f41beec4415014e3fd1fa8f159c7e85fc/google_adk-1.1.1.tar.gz)
+view details
+Uploaded 
+  May 29, 2025
+
+          Source
+
+```
+Source
+```
+
+### Built Distribution
+[google_adk-1.1.1-py3-none-any.whl](https://files.pythonhosted.org/packages/53/1d/cefb793fed19159e8a1975cb1767288b848b9c14020f70c1f0c8048a706c/google_adk-1.1.1-py3-none-any.whl)
+view details
+Uploaded 
+  May 29, 2025
+
+          Python 3
+
+```
+Python 3
+```
+
+## File details
+
+Details for the file google_adk-1.1.1.tar.gz.
+
+```
+google_adk-1.1.1.tar.gz
+```
+
+### File metadata
+- 
+        Download URL: [google_adk-1.1.1.tar.gz](https://files.pythonhosted.org/packages/0f/38/a67f59a3ecf9630d93007848ec3f41beec4415014e3fd1fa8f159c7e85fc/google_adk-1.1.1.tar.gz)
+
+- Upload date: 
+  May 29, 2025
+
+- Size: 1.1 MB
+- Tags: Source
+- 
+Uploaded using Trusted Publishing? No      
+- Uploaded via: twine/6.1.0 CPython/3.12.9
+[google_adk-1.1.1.tar.gz](https://files.pythonhosted.org/packages/0f/38/a67f59a3ecf9630d93007848ec3f41beec4415014e3fd1fa8f159c7e85fc/google_adk-1.1.1.tar.gz)
+
+### File hashes
+```
+9418675574d2e9fd8a3c8e423186b86fe4ad3f211dd5da400cf24f1ef39fe2d7
+```
+
+
+```
+a425b38c8b7482ba1c3462311d2eef1f
+```
+
+
+```
+0f38a67f59a3ecf9630d93007848ec3f41beec4415014e3fd1fa8f159c7e85fc
+```
+
+[See more details on using hashes here.](https://pip.pypa.io/en/stable/topics/secure-installs/)
+
+## File details
+
+Details for the file google_adk-1.1.1-py3-none-any.whl.
+
+```
+google_adk-1.1.1-py3-none-any.whl
+```
+
+### File metadata
+- 
+        Download URL: [google_adk-1.1.1-py3-none-any.whl](https://files.pythonhosted.org/packages/53/1d/cefb793fed19159e8a1975cb1767288b848b9c14020f70c1f0c8048a706c/google_adk-1.1.1-py3-none-any.whl)
+
+- Upload date: 
+  May 29, 2025
+
+- Size: 1.2 MB
+- Tags: Python 3
+- 
+Uploaded using Trusted Publishing? No      
+- Uploaded via: twine/6.1.0 CPython/3.12.9
+[google_adk-1.1.1-py3-none-any.whl](https://files.pythonhosted.org/packages/53/1d/cefb793fed19159e8a1975cb1767288b848b9c14020f70c1f0c8048a706c/google_adk-1.1.1-py3-none-any.whl)
+
+### File hashes
+```
+c6cdca1b9cab7126efa4984abaff2d7b26da7945da9e6b0e2e6ea1727fb3f966
+```
+
+
+```
+2d3c84123523cb875faf46730a064b10
+```
+
+
+```
+531dcefb793fed19159e8a1975cb1767288b848b9c14020f70c1f0c8048a706c
+```
+
+[See more details on using hashes here.](https://pip.pypa.io/en/stable/topics/secure-installs/)
+
+## Help
+- [Installing packages](https://packaging.python.org/tutorials/installing-packages/)
+- [Uploading packages](https://packaging.python.org/tutorials/packaging-projects/)
+- [User guide](https://packaging.python.org/)
+- [Project name retention](https://www.python.org/dev/peps/pep-0541/)
+- [FAQs](https://pypi.org/help/)
+[Installing packages](https://packaging.python.org/tutorials/installing-packages/)
+[Uploading packages](https://packaging.python.org/tutorials/packaging-projects/)
+[User guide](https://packaging.python.org/)
+[Project name retention](https://www.python.org/dev/peps/pep-0541/)
+[FAQs](https://pypi.org/help/)
+
+## About PyPI
+- [PyPI Blog](https://blog.pypi.org)
+- [Infrastructure dashboard](https://dtdg.co/pypi)
+- [Statistics](https://pypi.org/stats/)
+- [Logos & trademarks](https://pypi.org/trademarks/)
+- [Our sponsors](https://pypi.org/sponsors/)
+[PyPI Blog](https://blog.pypi.org)
+[Infrastructure dashboard](https://dtdg.co/pypi)
+[Statistics](https://pypi.org/stats/)
+[Logos & trademarks](https://pypi.org/trademarks/)
+[Our sponsors](https://pypi.org/sponsors/)
+
+## Contributing to PyPI
+- [Bugs and feedback](https://pypi.org/help/)
+- [Contribute on GitHub](https://github.com/pypi/warehouse)
+- [Translate PyPI](https://hosted.weblate.org/projects/pypa/warehouse/)
+- [Sponsor PyPI](https://pypi.org/sponsors/)
+- [Development credits](https://github.com/pypi/warehouse/graphs/contributors)
+[Bugs and feedback](https://pypi.org/help/)
+[Contribute on GitHub](https://github.com/pypi/warehouse)
+[Translate PyPI](https://hosted.weblate.org/projects/pypa/warehouse/)
+[Sponsor PyPI](https://pypi.org/sponsors/)
+[Development credits](https://github.com/pypi/warehouse/graphs/contributors)
+
+## Using PyPI
+- [Terms of Service](https://policies.python.org/pypi.org/Terms-of-Service/)
+- [Report security issue](https://pypi.org/security/)
+- [Code of conduct](https://policies.python.org/python.org/code-of-conduct/)
+- [Privacy Notice](https://policies.python.org/pypi.org/Privacy-Notice/)
+- [Acceptable Use Policy](https://policies.python.org/pypi.org/Acceptable-Use-Policy/)
+[Terms of Service](https://policies.python.org/pypi.org/Terms-of-Service/)
+[Report security issue](https://pypi.org/security/)
+[Code of conduct](https://policies.python.org/python.org/code-of-conduct/)
+[Privacy Notice](https://policies.python.org/pypi.org/Privacy-Notice/)
+[Acceptable Use Policy](https://policies.python.org/pypi.org/Acceptable-Use-Policy/)
+Status:[all systems operational](https://status.python.org/)
+Developed and maintained by the Python community, for the Python community.          
+          [Donate today!](https://donate.pypi.org)
+"PyPI", "Python Package Index", and the blocks logos are registered trademarks of the [Python Software Foundation](https://www.python.org/psf-landing).
+© 2025 Python Software Foundation
+          [Site map](https://pypi.org/sitemap/)
+- 
+
+              English
+
+
+- 
+
+              español
+
+
+- 
+
+              français
+
+
+- 
+
+              日本語
+
+
+- 
+
+              português (Brasil)
+
+
+- 
+
+              українська
+
+
+- 
+
+              Ελληνικά
+
+
+- 
+
+              Deutsch
+
+
+- 
+
+              中文 (简体)
+
+
+- 
+
+              中文 (繁體)
+
+
+- 
+
+              русский
+
+
+- 
+
+              עברית
+
+
+- 
+
+              Esperanto
+
+
+- 
+
+              한국어
+
+
+Supported by
+[AWS
+
+            Cloud computing and Security Sponsor](https://aws.amazon.com/)
+[Datadog
+
+            Monitoring](https://www.datadoghq.com/)
+[Fastly
+
+            CDN](https://www.fastly.com/)
+[Google
+
+            Download Analytics](https://careers.google.com/)
+[Pingdom
+
+            Monitoring](https://www.pingdom.com/)
+[Sentry
+
+            Error logging](https://getsentry.com/for/python)
+[StatusPage
+
+            Status page](https://statuspage.io)

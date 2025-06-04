@@ -1,4 +1,3 @@
-import mimetypes
 import struct
 import os
 import re
