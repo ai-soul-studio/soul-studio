@@ -13,3 +13,5 @@ venv/
 # Outputs
 outputs/
 python/
+.roo/
+.clinerules/
